@@ -15,7 +15,7 @@ def index():
     conn = 'mongodb://localhost:27017'
     client = pymongo.MongoClient(conn)
 
-    db = client.nasa_db
+    db = client.mars_db
     collection = db.articles
 
     executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
@@ -52,19 +52,19 @@ def index():
     actual_url = x + img_url
     print (actual_url)
     browser.visit(actual_url)
-    #mars_weather_url = "https://twitter.com/marswxreport?lang=en"
-    #browser.visit(mars_weather_url)
-    #html_3 = browser.html
-    #soup = BeautifulSoup(html_3, "html.parser")
-    #results_3 = soup.find_all('body')
-    #for r in results_3:
-        #tweet = r.find('p', class_='TweetTextSize TweetTextSize--normal js-tweet-text tweet-text').text
-    #splitted = tweet.split("\n")
-    #split2 = splitted [2].split("pic.twitter.com/")
-    #weather_tweet = splitted [0] + " " + splitted [1] + " " +  split2 [0]
-    #facts_url = "https://space-facts.com/mars/"
-    #browser.visit(facts_url)
-    #tables = pd.read_html(facts_url)
+    mars_weather_url = "https://twitter.com/marswxreport?lang=en"
+    browser.visit(mars_weather_url)
+    html_3 = browser.html
+    soup = BeautifulSoup(html_3, "html.parser")
+    results_3 = soup.find_all('body')
+    for r in results_3:
+        tweet = r.find('p', class_='TweetTextSize TweetTextSize--normal js-tweet-text tweet-text').text
+    splitted = tweet.split("\n")
+    split2 = splitted [2].split("pic.twitter.com/")
+    weather_tweet = splitted [0] + " " + splitted [1] + " " +  split2 [0]
+    facts_url = "https://space-facts.com/mars/"
+    browser.visit(facts_url)
+    tables = pd.read_html(facts_url)
     #html_1 = tables [0].to_html()
     #tables [0].to_html("mars.html")
     #html_2 = tables [1].to_html()

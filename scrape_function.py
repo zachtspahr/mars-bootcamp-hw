@@ -17,7 +17,8 @@ import pandas as pd
 # Initialize PyMongo to work with MongoDBs
 conn = 'mongodb://localhost:27017'
 client = pymongo.MongoClient(conn)
-
+db = client.mars_database
+collection = db.articles
 
 def scrape_everything():
     executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
@@ -57,8 +58,10 @@ def scrape_everything():
     facts_url = "https://space-facts.com/mars/"
     browser.visit(facts_url)
     tables = pd.read_html(facts_url)
-    html_1 = tables [0].to_html(classes="table table-striped")
-    tables [0].to_html("mars.html")
+    new_df = tables [0]
+    new_df = new_df.rename(columns={0: "Fact", 1: "Stat"})
+    html_1 = new_df.to_html(classes="table table-striped")
+    new_df.to_html("mars.html")
     html_2 = tables [1].to_html(classes="table table-striped")
     tables [1].to_html("mars2.html")
     hempispheres_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
@@ -100,16 +103,15 @@ def scrape_everything():
         "time_scraped": dt.datetime.now()
     }
 
-    print (mars_data)
-    
-    
-    return news_title,news_p, actual_url, weather_tweet,html_1,html_2,h_urls, hemisphere, mars_data
+
+    return mars_data
+
 
 
 # In[2]:
 
 
-scrape_everything()
+#scrape_everything()
 
 
 # In[ ]:
